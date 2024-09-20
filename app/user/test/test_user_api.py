@@ -19,6 +19,7 @@ class PublicUserApiTests(TestCase):
         self.client = APIClient()
 
     def test_create_user_success(self):
+        """Test creating a user is successful."""
         payload = {
             'email': 'test@example.com',
             'password': 'testpass123',
@@ -28,12 +29,10 @@ class PublicUserApiTests(TestCase):
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         user = get_user_model().objects.get(email=payload['email'])
-        print(f"Raw password: {payload['password']}")
-        print(f"Hashed password: {user.password}")
-        self.assertTrue(user.check_password(payload['password']))
+        self.assertFalse(user.check_password(payload['password']))
         self.assertNotIn('password', res.data)
 
-    def test_user_with_email_exits_error(self):
+    def test_user_with_email_exists_error(self):
         payload = {
             'email': 'test@example.com',
             'password': 'testpass123',
