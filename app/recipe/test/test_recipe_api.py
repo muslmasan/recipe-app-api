@@ -97,10 +97,8 @@ class PrivateRecipeApiTest(TestCase):
             'title': 'Sample recipe',
             'time_minutes': 30,
             'price': Decimal('5.99'),
-            'description': 'Sample description',
         }
         res = self.client.post(RECIPES_URL, payload)
-        print(res.data)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         recipe = Recipe.objects.get(id=res.data['id'])
