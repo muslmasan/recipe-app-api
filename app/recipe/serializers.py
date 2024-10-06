@@ -89,7 +89,7 @@ class TagSerializer(serializers.ModelSerializer):
 
 
 class RecipeImageSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = Recipe
         fields = ['id', 'image']

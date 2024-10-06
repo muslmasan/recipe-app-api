@@ -369,7 +369,7 @@ class ImageUploadTests(TestCase):
 
     def tearDown(self):
         self.recipe.image.delete()
-    
+
     def test_upload_image(self):
         url = image_upload_url(self.recipe.id)
         with tempfile.NamedTemporaryFile(suffix='.jpg') as image_file:
@@ -383,10 +383,10 @@ class ImageUploadTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertIn('image', res.data)
         self.assertTrue(os.path.exists(self.recipe.image.path))
-    
+
     def test_upload_image_with_bad_request(self):
         url = image_upload_url(self.recipe.id)
-        payload = {'image':'notanimage'}
+        payload = {'image': 'notanimage'}
         res = self.client.post(url, payload, format='multipart')
 
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
