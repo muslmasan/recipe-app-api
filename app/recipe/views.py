@@ -20,12 +20,12 @@ from recipe import serializers
             OpenApiParameter(
                 'tags',
                 OpenApiTypes.STR,
-                description='Comma separated list of IDs to filter',
+                description='Comma separated list of tag IDs to filter',
             ),
             OpenApiParameter(
                 'ingredients',
                 OpenApiTypes.STR,
-                description='Comma seqarated list of ingredients',
+                description='Comma separated list of ingredients',
             )
         ]
     )
@@ -102,8 +102,8 @@ class BaseRecipeAttrViewSet(
         )
         queryset = self.queryset
         if assigned_only:
-            queryset = queryset(recipe__isnull=False)
-        return self.queryset.filter(
+            queryset = queryset.filter(recipe__isnull=False)
+        return queryset.filter(
             user=self.request.user
             ).order_by('-name').distinct()
 
